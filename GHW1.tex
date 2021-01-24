@@ -1,0 +1,101 @@
+%Junk
+\documentclass[16pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color} 
+\usepackage{graphicx} 
+\newtheorem{defn}{Defn} 
+\newtheorem{prop}{Proposition} 
+\newtheorem{thm}{Theorem}
+\begin{document}
+\title{Homework I}
+\author{Kimberly Mandery}
+\date{due 8/7/2018} 
+\maketitle
+%Questions
+\begin{enumerate}
+%Question 1
+\item (20 points) In the following diagram, a piece of paper is first folded into thirds. By preforming the origami move of folding two points onto two lines, we obtain the picture below. Prove that $x=\sqrt[3]{2}$
+%Graphic
+\begin{center}
+\includegraphics[scale=1]{./sqrt2}
+\end{center}
+First, we can use the Pythagorean theorem and $\Delta BAC$ to solve for $d$.
+\[\overline{\rm AB}^2 +\overline{\rm BC}^2=\overline{\rm AC}^2 \\
+\Rightarrow 1^2+d^2=(x+1-d)^2\\
+\Rightarrow d=\frac{x^2+2x}{2x-2}\]
+Next, we can find $\overline{\rm DA}$. 
+\[x=\overline{\rm DA}+\frac{x+1}{3}
+\Rightarrow\overline{\rm DA}=x-\frac{x+1}{3}
+\Rightarrow\overline{\rm DA}=\frac{2x-1}{3}\]
+We know $\overline{\rm AD}\perp\overline{\rm DE}$ and $\overline{\rm AC}\perp\overline{\rm AE} \Rightarrow \angle DEA \cong \angle BAC \Rightarrow \Delta DEA \cong \Delta BAC$.
+\[\Rightarrow\frac{\overline{\rm BC}}{\overline{\rm AC}} = \frac{\overline{\rm DA}}{\overline{\rm EA}}
+\Rightarrow \frac{d}{x+1-d}=\frac{2x-1}{x+1}
+\Rightarrow\frac{x^2+2x}{x^2+2x+2}=\frac{2x-1}{x+1}\]
+\[\Rightarrow x^3+3x^2+2x=2x^3+3x^2+2x-2
+\Rightarrow x^3 = 2 \Rightarrow x=\sqrt[3]{2}.\]
+%Question 2
+\raggedright
+\item(20 points) Write a proof to solve the equation $ax^2+bx+c=0$ for $x$. Explain each step, starting with the following equation\\
+%Proof2
+\[ax^2+bx+c=0\]
+Subtract $c$ from both sides
+\[ax^2+bx=-c\]
+Divide both sides by $a$
+\[x^2+\frac{b}{a}x=\frac{-c}{a}\]
+Add $\frac{b^2}{4a^2}$ to both sides
+\[x^2+\frac{b}{a}x+\frac{b^2}{4a^2}=\frac{-c}{a}+\frac{b^2}{4a^2}\]
+Completing the square we get
+\[(x+\frac{b}{2a})^2=\frac{-c}{a}+\frac{b^2}{4a^2}\]
+Find a common denominator on the right hand side by multiplying $\frac{-c}{a}$ by $4a$.
+\[(x+\frac{b}{2a})^2=\frac{-4ac}{4a^2}+\frac{b^2}{4a^2}\]
+Now get rid of the power on the left by square rooting both sides.
+\[x+\frac{b}{2a}=\pm\sqrt{\frac{-4ac}{4a^2}+\frac{b^2}{4a^2}}\]
+Subtract off $-\frac{b}{2a}$ from both sides.
+\[x=\pm\frac{\sqrt{b^2-4ac}}{2a}-\frac{b}{2a}\]
+Rearranging we get
+\[x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\]
+
+
+
+\raggedright
+%Question3
+\item(20 points) Show that the following complex numbers are algebraic over $\mathbb{Q}$.\\
+\begin{defn}[Algebraic]
+Given a number b, b is said to be algebraic over the set $\mathbb{Q}$ if $\exists$ a polynomial of the form 
+\[a_nx^n + a_{n-1}x^{n-1} + \cdots + a_1x +a_0 = 0 \] with non-zero coefficients $a_i \in \mathbb{Q}$ where b is the solution (i.e. $f(b)=0$).
+\end{defn}
+\begin{enumerate}
+%parta: root2
+\item $\sqrt{2}$\\
+Let $x=\sqrt{2}$\\$x^2=2$\\$x^2-2=0$\\
+To verify, we plug in $f(\sqrt{2})=(\sqrt{2})^2-2=2-2=0$.\\By Defn 1, since $x=\sqrt{2}$ solves the function $f(x)=x^2-2,$ 
+\\$\sqrt{2}$ is algebraic.\\
+%partb: rootn
+\item $\sqrt{n}$ for $n \in \mathbb{Z}$\\Let $x=\sqrt{n}$\\$x^2=n$\\$x^2-n=0$\\By Defn 1, since $x=\sqrt{n}$ solves the function $f(x)=x^2-n,$
+\\$\sqrt{n}$ is algebraic.\\
+%partc:root3+root5
+\item $\sqrt{3}+\sqrt{5}$\\Let $x=\sqrt{3}+\sqrt{5}$\\
+Then $x^2=(\sqrt{3}+\sqrt{5})^2=8+2\sqrt{15}$\\
+and $x^4=(\sqrt{3}+\sqrt{5})^4=124+32\sqrt{15}$\\
+We can write each $x^n$ in terms of linear combinations of its coefficients.
+\[x^4=124+32x_1\]
+\[x^2=8+2x_1\]
+\[x^4-16x^2=-4+0x_1\]
+\[x^4-16x^2+4=0\]
+Since $x=\sqrt{3}+\sqrt{5}$ solves the polynomial $x^4-16x^2+4$,\\
+$x=\sqrt{3}+\sqrt{5}$ is algebraic.\\
+%partd:cuberoot2+root2
+\item$\sqrt[3]{2}+\sqrt{2}$\\
+Let $x=\sqrt[3]{2}+\sqrt{2}$. We can write each $x^n$ as a linear combination of its roots. The following equations gives the corresponding coefficients for each subsequent power of x.\\
+\[x^6=12+24X_1+60x_2+80x_3+60x_4+24x_5\]
+\[x^4=4+2x_2+8x_3+12x_4+8x_5\]
+\[x^3=2+6X_1+6x_2+2x_3\]
+\[x^2=2+1x_4+2x_5\]
+The work is left to the reader, but we should get our $f(x)=x^6-6x^4-4x^3+12x^2-24x-4$. Since $\exists f(x)$ where $f(\sqrt{3}+\sqrt{5})$ is equal to zero, $x=\sqrt[3]{2}+\sqrt{2}$ is algebraic.
+
+\end{enumerate}
+\end{enumerate}
+\end{document}

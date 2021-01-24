@@ -1,0 +1,259 @@
+\documentclass[12pt]{article}
+%\documentclass[12pt,a4paper]{article}
+%\documentclass[aip,amsmath,amssymb,reprint]{revtex4-1}
+%\documentclass[aip,amsmath,amssymb,graphicx]{revtex4-1}
+
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+% insert PostScript figures
+\usepackage{movie15}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{wrapfig}
+\usepackage{textcomp}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{relsize}
+\pagestyle{empty}
+\usepackage[top=.9in, bottom=.9in, left=.6in, right=.6in]{geometry}
+\usepackage{indentfirst}
+\usepackage{url}
+\usepackage{cite}
+\pagestyle{plain}
+
+\newcommand\md{\ }
+
+
+\begin{document}              
+\begin{titlepage}
+\begin{centering}
+	
+	MATH 5347: APPLIED ALGEBRA WITH CRYPTOLOGY\\
+
+ \line(1,0){500}
+
+\end{centering}
+
+	\par\vspace{3mm}
+
+\begin{centering}
+	{\bf Quantum Cryptography }
+	\par\vspace{1mm}
+	{ Jordan Klumper, Kimberly Mandery}
+	\par\vspace{1mm}
+	{ DUE 1600 26 November 2018}
+	\large
+	\par\vspace{10mm}
+	{\bf Abstract}
+
+\end{centering}
+%	\par\vspace{5mm}
+	
+\hspace{10pt}
+
+In this paper, we will introduce the roots of the quantum computing field and address it's ties with cryptography. The majority of quantum cryptography is theoretical at this point, thus the basics of the field and the ways in which quantum computing has affected the most commonly used cryptosystems will be discussed. For this paper, we will provide how RSA, ECC, and AES currently operate and how these common systems can be manipulated so that they are resistant to quantum computing attacks.
+%Maybe mention that using current algorithms on classical computers, it would take tweleve times the age of the earth in order to crack the encryption on an email. So that's where quantum computing comes into play. With a quantum computer, the time for the email encryption to be broken could be lessened down to a few days or even hours. 
+The goal of quantum cryptography is to create a system that is nearly unbreakable with the influx of next-gen computing power.
+\end{titlepage}
+\newpage
+
+\begin{center}
+	{\large \bf Quantum Computing}
+\end{center}
+
+To fully understand quantum computing, foundational knowledge of quantum theory is needed. Quantum theory is defined as the theoretical foundation of modern physics that explains the nature and behavior of matter and energy on the atomic and subatomic level\cite{quantumdef}. Evermore, particles have guiding principles: they act like both a wave and a particle, they act in ways that defy the speed of light (and thus defy classical physics), and can be in more than one place at the same time. One of the more interesting aspects of this field is that a particle behaves like a wave in every instance except for when it is observed. This is akin to stating that we cannot know all there is about the state of a quantum system, called the Heisenberg Uncertainty Principle. 
+\par\vspace{1mm}
+Applying quantum physics to computing, scientists were able to construct quantum versions of classical bits called qubits. These qubits are able to retain information of the classical two-state computations, as well as extending computation to probabilistic states where the qubit is neither a zero nor a one. Rather, these states are linear combination of probabilities of being both zero and one called superposition\cite{superpos1}. Superposition was first realized during the 1887 double-slit experiment by Michelson and Morley and later added upon by the metaphorical Schrodinger-Cat thought experiment in 1926\cite{superpos1}. These experiments laid the groundwork for work on quantum entanglement, where measuring certain properties of linked particles affects all the particles that are connected. An analogy would be that of several baited hooks on the same fishing line, where the pull of one of the hooks by a fish affects the position of the other hooks. This linkage of entanglement is what makes quantum computing for cryptography so intriguing. To see these concepts in play, the following example is given using our two cryptologists Alice and Bob. 
+	\par\vspace{1mm}
+
+\begin{figure}[h]
+\caption{Alice and Bob Example \cite{example}}
+\centering
+\includegraphics[scale=1.25]{examplelab3.png}
+\end{figure}
+\begin{figure}[h]
+\caption{Alice and Bob Example \cite{example}}
+\centering
+\includegraphics[scale=1.25]{examplelab2.png}
+\end{figure}
+
+In creating a random key for use on an encryption, Alice sends Bob a string of polarized photons. These photons can be of two types: rectilinear (either vertical or horizontal) and diagonal (either of the diagonals, i.e. D, D' $\in D_3$). Bob uses two filters, one for each scheme, and at random decodes the photons into binary. The rectilinear scheme would output the vertical as a one and the horizontal as a zero, and similarly for the diagonal scheme. He then sends the order of filters used to Alice. Alice sends back which filters are incorrectly used and they both get rid of the binary bit associated with the position of the wrongly identified photon. They now have a randomly generated key to use on any system. 
+
+In order for this to work properly, short travel distances and large enough strings of photons are necessary. The focus of enough photons is because Bob will choose filters at random, and as such will have a fifty-fifty chance of using the correct filter. In addition, if Bob uses the wrong filter, the photon would change (see Figure 1).  This is called the Observer Effect and it indicates if Bob used the incorrect filter upon comparison with Alice. The Observer Effect is impactful for protection against attacks; if someone were to try to hack in, say Eve, it would influence the charge of the photon (see Figure 2). Bob and Alice would both know an intruder came in since they compare filters. Since each filter is used at random it would be nearly impossible for Eve. to correctly identify every filter 100 percent of the time.
+	\par\vspace{1mm}
+
+	\par\vspace{1mm}
+
+When it comes to the positives and negatives of quantum computing, most are the by-product of how the quantum system is built. As alluded to in the example of Alice and Bob, it is important to understand the Observer Effect concept. When a system is measured it is altered, thus this concept is integral to both Alice and Bob in ascertaing when a hacker is interfering. This can also be a setback in computing as it is impossible to replicate quantum states without measurement. This theory, appropriately called the No-cloning Theory \cite{quantumdef}, prevents scientists from using classical error correction techniques. However, by storing the information of a singular qubit onto an entangled state of several qubits, scientists are able to circumvent classical error correction. QEC, or quantum error correction \cite{quantumerror}, is able to use this entangled system to not only find faulty qubits, but also effectively determine the various ways qubits can be affected using a metric called the syndrome measurement. Syndrome measurement allows researchers to create a superposition of basic operations and have each qubit ``decide"\cite{quantumerror} the state it should be in. 
+\par\vspace{1mm}
+One drawback that is not dependent on the structure of the system, however, is the prevalence of quantum computing. Since quantum computing is in its infancy, it is difficult to effectively determine certain outcomes. The bright side to these drawbacks are that researchers can learn from mistakes and gain more information. As physicist Richard Feynman stated, ``if you think you understand quantum mechanics, then you don't understand quantum mechanics" \cite{feynman}. This does not counteract the previous statement, but rather sheds light onto the vastness of what quantum computing could be. What researchers have found is that quantum computing is essential for safe-guarding current algorithms used in cryptography.  The foundation for most of these advances in quantum cryptography includes incorporating Shor's Algorithm, a theoretical algorithm for finding prime factorization of incredibly large numbers. Shor's Algorithm \cite{shor} allows factorization to be completed in manageable computation time as seen in Figure 3. Shor's Algorithm is as follows:
+\begin{enumerate}
+    \item Pick a number $a < N$ where $a$ not a factor of $N$.
+    \item Find $r$, the period of $a\text{ mod N}$ where $a^r \equiv 1\text{ mod N}$
+    \item Check: $r$ is even and $a^{1/2}+1 \not \equiv 1 \text{ mod N}$
+    \item Then $p=gcd(a^{1/2}-1, N)$ and $q=gcd(a^{1/2}+1, N)$
+\end{enumerate}
+
+In Shor's Algorithm, finding Step 2 is akin to finding a global property of the function. This is where quantum computing comes in handy. To solve this, the Quantum Fourier Transform can be implemented. This transform uses resonances to amplify the basic state associated with the correct period and suppress amplitudes that incorrectly interfere \cite{shor}. Complex Analysis (i.e. complex roots of unity) can then be used in order to find most probabilistic space. As such, the algorithm can be continued after finding Step 2 in order to correctly solve for $p$ and $q$.
+
+\begin{figure}[h]
+\caption{Complexity Comparisons \cite{shor}}
+\centering
+\includegraphics[scale=5]{shor.png}
+\end{figure} 
+
+\par\vspace{1mm}
+
+\begin{center}
+	{\large \bf AES Methods and the Stability of 256}
+\end{center}
+
+AES (Advanced Encryption Standard) is a single key cryptosystem first published in 1998 \cite{aes}. The same key is used both for encrypting and decrypting and the encryption occurs on blocks of bits, or matrices. It's a system that uses multiple operations on a block of 16-bits (a 4x4 matrix), these 16-bit blocks are created from 128 bits of plaint text. 
+
+In Figure 4, we begin with the 128-bit plaintext that gets converted to a 16-bit matrix. For each round, a different 128-bit round key (based on the overall key expansion) is used to perform an operation on the message matrix. For different sizes of the overall key, a different number of rounds are used 10 rounds, 12 rounds, and 14 rounds for the 128-bit, 192-bit, and 256-bit keys, respectively.
+
+\begin{figure}[h]
+\caption{AES Schematic \cite{tutpoint}}
+\centering
+\includegraphics[scale=0.7]{aes.jpg}
+\end{figure}
+
+Shor's algorithm is one method that would crack many common cryptosystems used today. AES  is not based on the discrete logarithm problem. Therefore, Shor's algorithm isn't effective in breaking AES. There is a lesser known quantum algorithm published in 1996 \cite{grover}, called Grover's algorithm, that allows one to crack AES in $\mathcal{O}(\sqrt{n})$ time as opposed to $\mathcal{O}(n)$ time in classical computing. While this is significant, it does not decrease the time it takes enough to viably crack AES-256\cite{resist}. It does however render the 192-bit and 128-bit key unsecure\cite{today}. Ultimately, AES can be improved by using a large key size and including it in authentication systems such as Kerberos (which verifies the authenticity of the users accessing information)\cite{kerb}.
+
+	\par\vspace{1mm}
+
+\begin{center}
+	{\large \bf RSA Methods and an Alternative}
+\end{center}
+
+The RSA (Rivest-Shamir-Adleman) cryptosystem published in 1977 is an asymmetric system that relies on the discrete logarithm problem. This means that it relies on the difficulty of factoring the product of two very large primes. Here is the basic idea of the RSA key generation:\\
+
+RSA Encryption:\cite{crypto}\cite{RSA}
+\begin{enumerate}
+    \item Choose two large similar sized primes $p$ and $q$.
+    \item Find $n=p\cdot q$ which is our modulus
+    \item Find $\phi(n)=\phi(p)\cdot\phi(q)=(p-1)(q-1)$
+    \item Given $e$, the encryption key, find $d$ where $d\equiv e^{-1}\pmod{n}$
+    \item We now have our public key: $(n,e)$ and our private key: $(d,p,q)$
+\end{enumerate}\\
+
+Unlike AES, the strength of this system is heavily reliant on the ability to factor numbers into their primes. Shor's algorithm is the perfect tool to utilize in order to break this cryptosystem; it would likely be able to factor the large numbers used in RSA in polynomial time which is a significant improvement and granting it the ability break our current RSA keys. Given the ability to use Shor's algorithm, we would be able to find $\phi(n)$ if we knew the prime factors of $n$. This would allow us to use the division algorithm to find our decryption key $d \text{ mod n} \equiv e^{-1}$ and break the system.
+
+As a substitute for RSA, a method that could be used is called XMSS (Extended Merkle Signature Scheme) published in 2011\cite{hash}. This method is a hash-based signature scheme which uses a hash-function to take a very large or infinite set of data and assigns it to a finite set. A simple example of this would be taking the integers and mapping it to the integers $\text{ mod n}$. Most signature schemes have slow key generation and allow only a small number of signatures. Since XMSS is not susceptible to quantum algorithms and preserves its asymmetric properties, it does not face these issues and thus serves as an alternative to RSA\cite{tools}.
+
+	\par\vspace{1mm}
+	
+
+\begin{center}
+	{\large \bf ECC Methods and Improvements}
+\end{center}
+
+ECC (Elliptic-curve Cryptography), first proposed in 1985\cite{ecc1}, is a cryptosystem that utilizes point addition on elliptic curves, generally over finite fields. The operation of point addition is passing a line through two points on an elliptic curve and the resulting third point created is reflected across the x-axis. When a point is added to itself, the tangent line to that point is used to find another point that intercepts the elliptic curve. The difficulty of this system comes from finding how many times it takes of adding a point to itself to get to another specific point\cite{crypto}.
+
+\begin{center}
+    Elliptic curve form: $Y^2=X^3+AX+B$ where $4A^3 + 27B^2 \ne 0$\\
+    Discrete logarithm problem: Give points $P$ and $Q$ find $n$ such that $Q=nP$
+\end{center}
+
+This security can be compromised using Shor's algorithm, which can also be used to find $n$ in the above equation.  Estimates in the field of quantum computing find that it may be even easier to crack ECC than it is RSA, simple by finding $n$ we solve the discrete logarithm problem. This means we would just need to find $n^{-1}$ in our field. This would allow any eavesdropper to decrypt the message or key sent\cite{andrea}.
+
+Published in 2011 \cite{ECC}, supersingular isogeny key exchange is a direct improvement to ECC that keeps in place many of the same systems already used. Given the elliptic curve form expressed above the $j$-invariant of an elliptic curve that is found via the Weierstrass equation is:\cite{ECC}
+
+$$j(E)=1728\frac{4A^3}{4A^3+27B^2}$$
+
+If the $j$-invariant is the same for two different curves over the same closed field, then the two curves are isomorphic. This results in the supersingular isogeny Diffie-Hellman protocol using the isomorphisms of the supersingular elliptic curves and their isogenies for security. Isogenies are rational mappings between elliptic curves that is also a group homomorphism. The quantum resistant portion comes from the isomorphisms of two curves\cite{ECC}.\\
+
+	\par\vspace{1mm}
+	
+\begin{center}
+	{\large \bf The Future of Quantum Computing}
+\end{center}
+
+The future of quantum computing is constantly being developed. A timetable for when we will have viable quantum computers varies quite a bit between experts, some estimates are anywhere from 5 to 50 years\cite{osa}\cite{sa}, and rely heavily on any noteworthy breakthroughs in the field. As of right now we don't have any quantum chips that work above 100 qubits. In order to perform any significant function in the field of cryptography, estimates put the necessary quantity of qubits in excess of 100 million\cite{shor}\cite{osa}.
+ 
+
+One major hindrance in the study of quantum computing is the fragility of qubits. Noise, temperature, electrical fluctuations, and vibrations affect the state of qubits and how they operate. These disturbances can lead to loss of data contained within the qubit. Since much of the work in the field relies on working with qubits at fractions of a degree above absolute zero, it is important to consider the environment the qubits are in. The key to getting the qubits to work effectively is to create an environment void of undesired observance and physical disturbances. Currently, research is being made in order to eliminate these irregularities and create more efficient and effective quantum chips \cite{sa}.
+
+As of 2018, some of the more successful breakthroughs include Google's creation of a 72-bit quantum chip which is the largest of its kind so far. MIT has reported a triple-photon light. Intel is working on silicon-based processors for qubits\cite{time}. IBM's quantum computer (see Figure 5) is currently available for use on the cloud. While these breakthroughs don't appear significant for quantum computing, there is a massive push by countries and companies to expand the boundaries of what is possible. This is a major focus for many in the tech industry because once major breakthroughs are made, then our current cyber-security infrastructure will be at risk.
+\newpage
+\begin{figure}[h]
+\caption{IBM Quantum Computer}
+\centering
+\includegraphics[scale=.3]{qcomp.png}
+\end{figure}
+
+\newpage
+\begin{thebibliography}{1}
+  
+  \bibitem{entangle} {\em Visualizing 2-Qubit Entanglement}\\ \textt{http://algassert.com/post/1716}
+  
+  \bibitem{quantumdef} {\em Quantum Theory}\\
+  \textt{https://whatis.techtarget.com/definition/quantum-theory}
+  
+  \bibitem{quantumerror} {\em Quantum Error Correction}\\
+  \textt{https://en.wikipedia.org/wiki/quantum-error-correction}
+  
+  \bibitem{feynman} {\em Richard Feynman Talks}\\
+  \textt{https://en.wikiquote.org/wiki/Talk:Richard_Feynman}
+  
+  \bibitem{superpos1} {\em Superposition Double-Slit Paradox}\\
+  \textt{https://phys.org/news/2014-10-superposition-revisited-resolution-double-slit-paradox.html}
+  
+  \bibitem{example} {\em Alice and Bob Lab Example}\\
+  \textt{https://ieeexplore.ieee.org}
+
+  \bibitem{shor} {\em Complexity of Classical vs Shor's Algorithm}\\ \textt{https://quantumexperience.ng.bluemix.net/proxy/tutorial/full-user-guide/004-Quantum\_Algorithms/110-Shor\%27s\_algorithm.html}
+  
+  \bibitem{crypto} Jeffrey Hoffstein, Jill Pipher, J.H. Silverman {\em An Introduction to Mathematical Cryptography} 2008: Springer-Verlag New York
+  
+  \bibitem{today} {\em How secure is today's encryption against quantum computers?}\\ \texttt{https://betanews.com/2017/10/13/current-encryption-vs-quantum-computers/}
+  
+  \bibitem{aes} {\em Advanced Encryption Standard}\\ \texttt{https://en.wikipedia.org/wiki/Advanced_Encryption_Standard}
+  
+  \bibitem{grover} {\em Grover's Algorithm}\\ \texttt{ https://en.wikipedia.org/wiki/Grover\%27s\_algorithm}
+  
+  \bibitem{hash} {\em Hash-based cryptography}\\ \texttt{https://en.wikipedia.org/wiki/Hash-based_cryptography}
+  
+  
+  \bibitem{quantum1} {\em Quantum Computing Lecture}\\ \texttt{https://people.eecs.berkeley.edu/~luca/quantum/lecture02.pdf}
+
+  \bibitem{tutpoint} {\em Advanced Encryption Standard}\\
+  \textt{https://www.tutorialspoint.com/cryptography/advanced\_encryption\_standard.htm}
+  
+  \bibitem{kerb} {\em Kerberos (protocol)}\\
+  \textt{https://en.wikipedia.org/wiki/Kerberos\_(protocol)}
+ 
+  \bibitem{ecc1} {\em Overview of History of Elliptic Curves and its
+  use in cryptography}\\ \textt{https://www.ijser.org/researchpaper/Overview-of-History-of-Elliptic-Curves-and-its-use-in-cryptography.pdf}
+
+
+  \bibitem{resist} {\em The 256-bit AES Resists Quantum Attacks}\\
+  \textt{https://www.researchgate.net/publication/316284124\_The\_AES-256\_Cryptosystem\_Resists\_Quantum\_\\Attacks}
+  
+  \bibitem{RSA} {\em RSA (cryptosystem)}\\
+  \textt{https://en.wikipedia.org/wiki/RSA\_(cryptosystem)}
+  
+  \bibitem{tools} {\em XMSS: Extended Hash-Based Signatures}\\
+  \textt{https://tools.ietf.org/id/draft-irtf-cfrg-xmss-hash-based-signatures-10.html}
+  
+  \bibitem{andrea} {\em Elliptic Curve Cryptography: ECDH and ECDSA}\\
+  \textt{http://andrea.corbellini.name/2015/05/30/elliptic-curve-cryptography-ecdh-and-ecdsa/}
+  
+   \bibitem{ECC} {\em Supersingular isogeny key exchange}\\
+  \textt{https://en.wikipedia.org/wiki/Supersingular\_isogeny\_key\_exchange}
+  
+  \bibitem{osa} {\em Quantum Computing: How Close Are We?}\\ \textt{https://www.osa-opn.org/home/articles/volume\_27/october\_2016/features/quantum\_computing\_
+  \\how\_close\_are\_we/}
+  
+  \bibitem{sa} {\em How Close Are We—Really—to Building a Quantum Computer?}\\ \textt{https://www.scientificamerican.com/article/how-close-are-we-really-to-building-a-quantum-computer/}
+  
+  \bibitem{time} {\em Timeline of quantum computing}\\ \textt{https://en.wikipedia.org/wiki/Timeline_of_quantum_computing}
+  
+\end{thebibliography}
+\listoffigures
+
+\end{document}

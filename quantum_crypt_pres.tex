@@ -1,0 +1,398 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}	 			% insert PostScript figures
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{wrapfig}
+\usepackage{textcomp}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{relsize}
+\pagestyle{empty}
+\usepackage[top=.9in, bottom=.9in, left=.6in, right=.6in]{geometry}
+\usepackage{indentfirst}
+\usepackage{url}
+\usepackage{cite}
+\usepackage{xcolor}
+\usepackage{biblatex}
+\usetheme{Copenhagen}
+\usecolortheme{seahorse}
+
+\title[Quantum Cryptography]{Quantum Cryptography}
+\author{Jordan Klumper, Kimberly Mandery}
+\institute{MATH5347: Cryptography}
+\date{November 2018}
+\begin{document}
+\frame{\titlepage}
+ 
+%Slide 2
+\begin{frame}
+\frametitle{Quantum Computing: Qubit}
+\begin{center}
+\includegraphics[scale=.8]{qubit.png}
+\end{center}
+\end{frame}
+%Slide 2
+\begin{frame}
+\frametitle{Quantum Computing: Superposition}
+\begin{center}
+Classical Bit vs Quantum Bit
+\includegraphics[scale=.5]{superposition.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Quantum Computing: Superposition}
+\begin{center}
+\includegraphics[scale=0.35]{supercoin.png}
+\end{center}
+\end{frame}
+
+%Slide 2
+\begin{frame}
+\frametitle{Quantum Computing: Entanglement}
+\begin{center}
+\includegraphics[scale=.8]{entanglecoin.jpg}
+\end{center}
+\end{frame}
+
+%Example
+\begin{frame}
+\frametitle{Quantum Key Exchange}
+\centering
+\includegraphics[scale=.5]{setup1.PNG}\\
+\includegraphics[scale=.5]{setup2.PNG}
+\end{frame}
+\begin{frame}
+\frametitle{Quantum Key Exchange}
+\centering
+\includegraphics[scale=.5]{alicestep1.PNG}\\ 
+\includegraphics[scale=.5]{alicestep2.PNG}
+\end{frame}
+\begin{frame}
+\frametitle{Quantum Key Exchange}
+\centering
+\includegraphics[scale=.5]{bobstep3.PNG}
+\end{frame}
+\begin{frame}
+\frametitle{Quantum Key Exchange}
+\centering
+\includegraphics[scale=.5]{bobalicecomparestep4.PNG}
+\end{frame}
+\begin{frame}
+\frametitle{Quantum Key Exchange}
+\centering
+\includegraphics[scale=.5]{bobalicetalkstep5.png}
+\end{frame}
+\begin{frame}
+\frametitle{Quantum Key Exchange}
+\centering
+\includegraphics[scale=.5]{step6.PNG}\\
+\href{https://www.youtube.com/watch?v=zL4HSk4MUUw}{\beamergotobutton{Human Tetris}}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Quantum Key Exchange}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{examplelab3.png}
+\end{figure}
+\end{frame}
+\begin{frame}{Quantum Key Exchange}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=.85]{examplelab2.png}
+\end{figure}
+\end{frame}
+%Slide 3
+\begin{frame}
+\frametitle{Why does this matter in Cryptography?}
+Most used systems potentially insecure\\
+Shor's Algorithm
+\end{frame}
+
+\begin{frame}
+\frametitle{Shor's Algorithm}
+    \begin{enumerate}
+        \item Pick a number $a < N$ \\
+    where $a$ not a factor of $N$. \pause
+        \item Find $r$ such that $a\text{ mod N}$ \\
+    where $a^r \equiv 1\text{ mod N}$, \\
+    this is called the period or order \pause
+        \item Check: $r$ is even \\
+    and $a^{1/2}+1 \not \equiv 1 \text{ mod N}$ \pause
+        \item Then $p=gcd(a^{1/2}-1, N)$ \\
+    and $q=gcd(a^{1/2}+1, N)$ 
+    \end{enumerate}
+\end{frame}
+\begin{frame}{Shor's Algorithm}
+    \begin{enumerate}
+        \item Quantum Fourier Transform : uses resonances to amplify the basic state associated with the correct period and suppress amplitudes that incorrectly interfere.\pause
+        \item Complex Analysis (i.e. complex roots of unity) : can then be used in order to find most probabilistic space.
+    \end{enumerate}
+\end{frame}
+
+
+%Slide 4.a.1
+\begin{frame}
+\frametitle{AES}
+{\bf AES - Advanced Encrypton Standard}\\
+{\bf What is AES?}\\
+A single key (symmetric key) is used in both encrypting and decryption. Messages are split into 128-bit size pieces that are turned into matrices.\\
+\begin{figure}[h]
+\caption{AES Schematic}
+\centering
+\includegraphics[scale=0.3]{aes.jpg}
+\end{figure}
+\end{frame}
+
+%Slide 4.a.2
+\begin{frame}
+\frametitle{AES}
+{\bf How is it broken?}\\
+\begin{itemize}
+\item
+Shor's Algorithm is not helpful\\
+\pause
+\item
+Grover's Algorithm (another quantum algorithm) which allows the computation time to break AES to go from $\mathcal{O}(n)$ in classical to $\mathcal{O}(\sqrt{n})$ in quantum computing\\
+\includegraphics[scale=.35]{grover.png}
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{AES}
+{\bf How is it broken?}\\
+\begin{itemize}
+\item
+Shor's Algorithm is not helpful\\
+\item
+Grover's Algorithm (another quantum algorithm) which allows the computation time to break AES to go from $\mathcal{O}(n)$ in classical to $\mathcal{O}(\sqrt{n})$ in quantum computing\\
+\end{itemize}
+\vspace{0.1in}
+{\bf How is it made resistant to quantum computing?}\\
+\begin{itemize}
+\item
+Choose largest keys possible, increases the time it takes. 
+\item
+Use authentication systems which offers additional layers to the security of the system.
+\end{itemize}
+\end{frame}
+
+%Slide 4.b.1
+\begin{frame}
+\frametitle{RSA}
+{\bf RSA - Rivest-Shamir-Adleman}\\
+{\bf What is RSA?}\\
+An asymmetrical cryptosystem that utilizes the discrete logarithm problem, that is it's difficult to factor the product of two very large primes\\
+\begin{enumerate}
+    \item Choose two large similar sized primes $p$ and $q$.
+    \item Find $n=p\cdot q$ which is our modulus
+    \item Find $\phi(n)=\phi(p)\cdot\phi(q)=(p-1)(q-1)$
+    \item Given $e$, the encryption key, find $d$ where $d\equiv e^{-1}\pmod{\phi(n)}$
+    \item We now have our public key: $(n,e)$ and our private key: $(d,p,q)$
+\end{enumerate}\\
+\end{frame}
+
+%Slide 4.b.2
+\begin{frame}
+\frametitle{RSA}
+{\bf How is it broken?}\\
+\begin{itemize}
+    \pause
+    \item Given our public key: $(n,e)$, Shor's algorithm allows us to find $p$ and $q$
+    \pause
+    \item With $p$ and $q$ we can readily find $d$ using step 4 on the previous slide now that $\phi(n)$ is easily computed
+\end{itemize}
+\vspace{0.1in}
+{\bf How is it made resistant to quantum computing?}\\
+\begin{itemize}
+    \pause
+    \item As of right now there aren't any widely accepted ways to improve
+    RSA
+    \pause
+    \item XMSS (Extended Merkle Signature Scheme) has been suggested as a replacement as it's resistant to quantum algorithms.
+    \pause
+    \item Rather than a discrete logarithm problem, XMSS uses a hash-based function for security, these are considered quantum resistant
+\end{itemize}
+\end{frame}
+
+%Slide 4.c.1
+\begin{frame}
+\frametitle{ECC}
+{\bf ECC - Elliptical Curve Cryptography}\\
+{\bf What is ECC?}\\
+A cryptosystem that uses an algebraic structure created by points on an elliptic curve over a finite field. It's another system based on the discrete logarithm problem.
+\begin{center}
+    Elliptic curve form: $Y^2=X^3+AX+B$ where $4A^3 + 27B^2 \ne 0$\\
+    Discrete logarithm problem: Give points $P$ and $Q$ find $n$ such that $Q=nP$
+\end{center}
+\end{frame}
+
+%Slide 4.c.2
+\begin{frame}
+\frametitle{ECC}
+{\bf How is it broken?}\\
+\begin{itemize}
+    \pause
+    \item Similar to RSA, Shor's algorithm can be used to find $n$ and allowing an eavesdropper to determine the private key
+    \pause
+\end{itemize}
+\vspace{0.1in}
+{\bf How is it made resistant to quantum computing?}\\
+\begin{itemize}
+    \pause
+    \item  Supersingular  Isogeny  Key  Exchange  is a direct  improvement to ECC
+\end{itemize}
+\pause
+$$j(E)=1728\frac{4A^3}{4A^3+27B^2}$$
+\begin{itemize}
+\pause
+    \item If the $j$-invariant of two curves is the same, they are isomorphic over the same field.
+\end{itemize}
+\pause
+\begin{center}
+ Alice finds $\phi_A(E)$ sends it to Bob who finds  $\phi_B(E_A)$ which is $E_{AB}$
+ Now Bob has $E_{AB}$, similar to above Alice ends up with $E_{BA}$\\
+ $E_{AB}\cong E_{BA}$
+\end{center}
+%Two parties begin with a common public curve and each create a new curve both of which are isomorphic
+%Security comes from the mappings being difficult to find, as well as the time it would take Shor's algorithm to find $n$ of ECC
+\end{frame}
+
+%Slide 5
+\begin{frame}
+\frametitle{When will this occur?}
+\begin{itemize}
+\pause
+\item As of 2018 Google has created a 72-qubit quantum chip, the largest yet.
+\pause
+\item To even begin writing software on quantum computers, hundreds to thousands of qubits would be needed. 
+\pause
+\item To run Shor's algorithm on a 2,000-bit number a quantum computer is estimated to require 130 million cubits.
+\pause
+\item For quantum cryptography, estimates say we are 10 to 20 years away, but estimates vary widely.
+\end{itemize}
+\end{frame}
+
+%Slide 6
+\begin{frame}
+\frametitle{Thanks}
+
+\includegraphics[scale=.25]{smile.PNG}
+\end{frame}
+%Slide 6
+\begin{frame}
+\frametitle{Thanks}
+
+\includegraphics[scale=1]{smile.PNG}
+\end{frame}
+%Slide 6
+\begin{frame}
+\frametitle{Thanks}
+
+\includegraphics[scale=1.75]{smile.PNG}
+\end{frame}
+%Slide 6
+\begin{frame}
+\frametitle{Thanks}
+\includegraphics[scale=2.75]{smile.PNG}
+\end{frame}
+%Slide 6
+\begin{frame}
+\frametitle{Thanks}
+\includegraphics[scale=4]{smile.PNG}
+\end{frame}
+%Slide 6
+\begin{frame}
+\frametitle{Thanks}
+\includegraphics[scale=5.25]{smile.PNG}
+\end{frame}
+%Slide 7
+
+
+\begin{thebibliography}{1}
+  \begin{frame}
+ \frametitle{Resources}
+  \bibitem{entangle} {\em Visualizing 2-Qubit Entanglement}\\ \textt{http://algassert.com/post/1716}
+  
+  \bibitem{quantumdef} {\em Quantum Theory}\\
+  \textt{https://whatis.techtarget.com/definition/quantum-theory}
+  
+  \bibitem{quantumerror} {\em Quantum Error Correction}\\
+  \textt{https://en.wikipedia.org/wiki/quantum-error-correction}
+  
+  \bibitem{feynman} {\em Richard Feynman Talks}\\
+  \textt{https://en.wikiquote.org/wiki/Talk:Richard_Feynman}
+  
+  \bibitem{superpos1} {\em Superposition Double-Slit Paradox}\\
+  \textt{https://phys.org/news/2014-10-superposition-revisited-resolution-double-slit-paradox.html}
+  
+  \bibitem{example} {\em Alice and Bob Lab Example}\\
+  \textt{https://ieeexplore.ieee.org}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Resources}
+  \bibitem{shor} {\em Complexity of Classical vs Shor's Algorithm}\\ \textt{https://quantumexperience.ng.bluemix.net/proxy/tutorial/full-user-guide/004-Quantum\_Algorithms/110-Shor\%27s\_algorithm.html}
+  
+  \bibitem{crypto} Jeffrey Hoffstein, Jill Pipher, J.H. Silverman {\em An Introduction to Mathematical Cryptography} 2008: Springer-Verlag New York
+  
+  \bibitem{today} {\em How secure is today's encryption against quantum computers?}\\ \texttt{https://betanews.com/2017/10/13/current-encryption-vs-quantum-computers/}
+  
+  \bibitem{aes} {\em Advanced Encryption Standard}\\ \texttt{https://en.wikipedia.org/wiki/Advanced_Encryption_Standard}
+  
+  \bibitem{grover} {\em Grover's Algorithm}\\ \texttt{ https://en.wikipedia.org/wiki/Grover\%27s\_algorithm}
+  
+  \bibitem{hash} {\em Hash-based cryptography}\\ \texttt{https://en.wikipedia.org/wiki/Hash-based_cryptography}
+  
+  \end{frame}
+
+\begin{frame}
+\frametitle{Resources}
+  \bibitem{quantum1} {\em Quantum Computing Lecture}\\ \texttt{https://people.eecs.berkeley.edu/~luca/quantum/lecture02.pdf}
+
+  \bibitem{tutpoint} {\em Advanced Encryption Standard}\\
+  \textt{https://www.tutorialspoint.com/cryptography/advanced\_encryption\_standard.htm}
+  
+  \bibitem{kerb} {\em Kerberos (protocol)}\\
+  \textt{https://en.wikipedia.org/wiki/Kerberos\_(protocol)}
+ 
+  \bibitem{ecc1} {\em Overview of History of Elliptic Curves and its
+  use in cryptography}\\ \textt{https://www.ijser.org/researchpaper/Overview-of-History-of-Elliptic-Curves-and-its-use-in-cryptography.pdf}
+
+
+  \bibitem{resist} {\em The 256-bit AES Resists Quantum Attacks}\\
+  \textt{https://www.researchgate.net/publication/316284124\_The\_AES-256\_Cryptosystem\_Resists\_Quantum\_\\Attacks}
+  
+  \bibitem{RSA} {\em RSA (cryptosystem)}\\
+  \textt{https://en.wikipedia.org/wiki/RSA\_(cryptosystem)}
+  
+  \bibitem{tools} {\em XMSS: Extended Hash-Based Signatures}\\
+  \textt{https://tools.ietf.org/id/draft-irtf-cfrg-xmss-hash-based-signatures-10.html}
+  
+  \bibitem{andrea} {\em Elliptic Curve Cryptography: ECDH and ECDSA}\\
+  \textt{http://andrea.corbellini.name/2015/05/30/elliptic-curve-cryptography-ecdh-and-ecdsa/}
+  
+   \bibitem{ECC} {\em Supersingular isogeny key exchange}\\
+  \textt{https://en.wikipedia.org/wiki/Supersingular\_isogeny\_key\_exchange}
+  
+  \bibitem{osa} {\em Quantum Computing: How Close Are We?}\\ \textt{https://www.osa-opn.org/home/articles/volume\_27/october\_2016/features/quantum\_computing\_
+  \\how\_close\_are\_we/}
+  
+  \bibitem{sa} {\em How Close Are We—Really—to Building a Quantum Computer?}\\ \textt{https://www.scientificamerican.com/article/how-close-are-we-really-to-building-a-quantum-computer/}
+  
+  \bibitem{time} {\em Timeline of quantum computing}\\ \textt{https://en.wikipedia.org/wiki/Timeline_of_quantum_computing}
+\end{frame}
+\end{thebibliography}
+\begin{frame}{Questions?}
+\centering
+    \includegraphics[scale=0.2]{qcomp.png}
+\end{frame}
+\end{document}

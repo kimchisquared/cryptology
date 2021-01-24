@@ -1,0 +1,64 @@
+%Init
+\documentclass[16pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color} 
+\usepackage{graphicx} 
+\newtheorem{defn}{Defn} 
+\newtheorem{prop}{Proposition} 
+\newtheorem{thm}{Theorem}
+\begin{document}
+\title{Homework III}
+\author{Kimberly Mandery}
+\date{due 10/03/2018} 
+\maketitle
+%Questions
+\begin{enumerate}
+
+%Question 1
+\item(20pts) Let $\sigma = (1\:3\:5\:2)(7\:6)$ and $\tau = (2\:4\:5\:7)(3\:6)$ be elements of $S_7$.
+\begin{enumerate}
+\item Compute $\sigma ^2$ and write the answer as a product of disjoint cycles.\\\\
+To compute $\sigma ^2$, we first start with 
+$(1\:3\:5\:2)(7\:6)(1\:3\:5\:2)(7\:6)$.
+Starting from the first 1 on the right and reading to the left, we have 1 $\to$ 3 and 3 $\to$ 5. Starting with 5, we have 5 $\to$ 2 and 2 $\to$ 1. Since we can omit the intermediary number 3, we get 1 going to 5 and vice-versa. This completes the first cycle $(1\:5)$.  We continue in this pattern and get our product of disjoint cycles for $\sigma ^2$ to be $(1\:5)(2\:3)(4)(6)(7)=\textbf{(1\:5)(2\:3)}$.\\ 
+\item Compute $\tau \sigma $ and write the answer as a product of disjoint cycles.\\\\
+We start in a similar fashion by writing $\tau \sigma$ as $(2\:4\:5\:7)(3\:6)(1\:3\:5\:2)(7\:6)$. Then we have 1 $\to$ 3 and 3 $\to$ 6. Starting with 6, we have 6 $\to$ 7 and 7 $\to$ 2. Lastly, starting with 2, we have 2 $\to$ 1. So our complete first cycle is $(1\:6\:2)$. We can continue in this pattern and get our product of disjoint cycles to be $\textbf{(1\:6\:2)(3\:7)(4\:5)}$.\\\\
+\end{enumerate}
+%Question 2 
+\item(10 pts) Write all the cycles of length three that live in $S_4$.\\\\
+We notice here that if we list all the cycles of length three, we are also listing all of the cycles of length one. For example, for the cycle $(1)$ we get two complementary cycles of length three being $(2\:3\:4)$ and $(2\:4\:3)$. These are two of the eight cycles we are looking for. We can continue in this pattern to reveal all eight cycles of length three being as follows:\\ 
+
+\begingroup
+\centering
+$(2\:3\:4) \qquad (2\:4\:3)\qquad (1\:3\:4)\qquad (1\:4\:3)$\\
+$(1\:2\:4)\qquad (1\:4\:2)\qquad (1\:2\:3)\qquad (1\:3\:2)$\\.\\
+\endgroup 
+
+
+%Question 3
+\item(30pts) Label the corners of your Rubik's cube, write how the corners are moved using cyclic notation from $S_8$.\\
+\begin{enumerate}
+\item For each generating move of the Rubik's cube, write how the corners are moved using cyclic notation from $S_8$.\\
+
+\begingroup
+\centering
+$D\>(5\:6\:7\:8)\qquad R \>(2\:3\:8\:7) \qquad F\>(1\:2\:7\:6)$\\
+$U \>(1\:4\:3\:2) \qquad L \>(1\:6\:5\:4) \qquad B\>(3\:4\:5\:8)$\\.\\
+\endgroup
+
+
+\item Compute $D^2$, $DR$, $URU$, and $RDRD^2$.\\
+
+Starting with each composition, we can use the method discussed in Question 1 to rewrite each as a product of disjoint cycles. \\\\$D^2\>$ is $(5\:6\:7\:8)(5\:6\:7\:8)$ and can be written as $\textbf{(5\:7)(6\:8)}$. \\$DR\>$ is $(5\:6\:7\:8)(2\:3\:8\:7)$ and can be written as $\textbf{(2\:3\:5\:6\:7)}$. \\$URU\>$ is $(1\:4\:3\:2)(2\:3\:8\:7)(1\:4\:3\:2)$ and can be written as $\textbf{(1\:3\:2\:4\:8\:7)}$. \\$RDFD^2\>$ is $(2\:3\:8\:7)(5\:6\:7\:8)(1\:2\:7\:6)(5\:6\:7\:8)^2$ and can be written as $\textbf{(1\:3\:8)(2\:7\:6\:5)}$.\\
+
+\item What moves would you use to interchange the front left upper corner with the down right back corner? Which other corner cubes are not in their original position when you do this?\\
+
+The move $L^2DF^2$ will interchange corners 1 and 8. The cyclic notation for $\>L^2DF^2$ is $(1\:6\:5\:4)^2(5\:6\:7\:8)(1\:2\:7\:6)^2$. Since $F^2$ can be written as $(1\:7)(2\:6)$ and $L^2$ can be written as $(1\:5)(4\:6)$, we can reconfigure $\>F^2DL^2$ as $(1\:5)(4\:6)(5\:6\:7\:8)(1\:7)(2\:6)$. Recall in Question 1 that we can write this as a product of disjoint cycles, so $L^2DF^2$ becomes $(1\:8)(2\:7\:5\:4\:6)$. Since $(3)$ is a singleton cycle, this corner was mapped to itself and thus did not move. \textbf{By using $L^2DF^2$ to interchange corners 1 and 8, all other corners except $3$ are not in their original position.}\\
+
+\end{enumerate}
+%Fin
+\end{enumerate}
+\end{document}

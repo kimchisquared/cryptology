@@ -1,0 +1,118 @@
+\documentclass[12pt]{article}
+%\documentclass[12pt,a4paper]{article}
+%\documentclass[aip,amsmath,amssymb,reprint]{revtex4-1}
+%\documentclass[aip,amsmath,amssymb,graphicx]{revtex4-1}
+
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}	 			% insert PostScript figures
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{wrapfig}
+\usepackage{textcomp}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{relsize}
+\pagestyle{empty}
+\usepackage[top=.9in, bottom=.9in, left=.6in, right=.6in]{geometry}
+\usepackage{indentfirst}
+\usepackage{url}
+\usepackage{cite}
+\pagestyle{plain}
+
+\newcommand\md{\ }
+
+
+\begin{document}              
+
+\begin{centering}
+	
+	MATH 5347: APPLIED ALGEBRA WITH CRYPTOLOGY\\
+
+ \line(1,0){500}
+
+\end{centering}
+
+	\par\vspace{3mm}
+
+\begin{centering}
+	{\bf Graded Homework 7 (40 points)}
+	\par\vspace{1mm}
+	{ Kimberly Mandery}
+	\par\vspace{1mm}
+	{\bf DUE 1600 19 November 2018}
+
+
+\end{centering}
+
+
+
+\vspace{3mm}
+
+{\bf Instructions}: This is a graded homework assignment worth 40 points.  Solutions must be organized, neat in appearance, and must clearly indicate the answer to each problem.  Be sure to show your work where appropriate.  
+
+\vspace{5mm}
+
+\begin{enumerate}
+\item (20 points)
+Let $E$ be the elliptic curve 
+\[E\colon y^2=x^3+x+1\]
+and let $P=(4,2)$ and $Q=(0,1)$ be the points on $E$ modulo 5.  Solve the elliptic curve discrete logarithm problem for $P$ and $Q$, that is, find a positive integer $n$ such that $Q=nP$.
+
+$\textbf{Step 1: }$ Our basic format is as follows:
+\[nP = [x_3, y_3, 1] = [\lambda ^2 - x_1 - x_2, \lambda (x_1 - x_3) - y_1, 1 ]\]
+\[\text{ where } nP = P_1 \oplus P_2 = [x_1,y_1,1]\oplus[x_2,y_2,1] \text{ and } \lambda = \begin{dcases} \frac{y_2-y_1}{x_2-x_1} & \text{if } $P_1\not = P_2$ \\\frac{3x_1^2+1}{2y_1} & \text{if } $P_1 = P_2$. \\\end{dcases}\]
+
+$\textbf{Step 2: } $In order to compute $2P$, we must first compute the appropriate $\lambda$.\\
+Beginning with $P_1 = P_2 = [4,2,1]$ we can first calculate $\lambda_{2P}$. \[\lambda_{2P} = \frac{3(4)^2+1}{2(2)} = \frac{48+1}{4} \equiv \frac{4}{4} \equiv 1.\]
+Now we can compute $2P$ as \[2P = [1 ^2 - 4 - 4, 1 (4 - x_3) - 2, 1 ] \equiv [3,4,1].\]
+We can repeat the process until we get $nP \equiv [0,1,1]$.\\
+
+$\textbf{Step 3: }$ $3P\equiv P \oplus 2P$ where $P_1 \equiv [4,2,1]$ and $ P_2 \equiv [3,4,1]$.\\
+\[\lambda_{3P}=\frac{4-2}{3-4}\equiv \frac{2}{-1}\equiv -2 \equiv 3 \]
+\[3P= [3 ^2 - 4 - 3, 3 (4 - x_3) - 2, 1 ] \equiv [2,4,1].\]
+
+$\textbf{Step 4: }$ $4P\equiv 2P \oplus 2P$ where $P_1 = P_2 = [3,4,1]$.\\
+\[\lambda_{4P}=\frac{3(3)^2+1}{2(4)}\equiv \frac{3}{3}\equiv 1 \]
+\[4P= [1 ^2 - 3 - 3, 1 (3 - x_3) - 2, 1 ] \equiv [0,4,1].\]
+
+$\textbf{Step 5: }$ $5P\equiv 2P \oplus 3P$ where $P_1 \equiv [3,4,1]$ and $P_2 \equiv [2,4,1]$.\\
+\[\lambda_{5P}=\frac{4-4}{2-3}\equiv \frac{0}{-1}\equiv 0 \]
+\[5P= [0 ^2 - 3 - 2, 1 (3 - x_3) - 2, 1 ] \equiv [0,1,1].\]
+
+thus \textbf{Q = 5P}.
+
+
+\item (20 points)
+Use the double-and-add algorithm (Table 6.3) to compute $nP$ in $E(\mathbb{F}_p)$ for the following curves and points.
+\[E\colon Y^2=x^3+23X+13,\hspace{2cm} p=83,\hspace{1cm}P=(24,14),\hspace{1cm}n=19.\]
+
+We use the method described in Step 1 of Exercise 1, but replace A=1 with A=23 in our $\lambda$ function. However, instead of having to do 19 calculations in total, we can use the double-and-add algorithm to compute $16P \oplus 3P \equiv 19P$. In order to make use of the inverse property, use Wolfram Alpha to calculate inverses.
+
+$\textbf{Step 1: }$ $2P\equiv P \oplus P$ where $P_1 \equiv P_2 \equiv [24,14,1]$.\\
+\[\lambda_{2P}=\frac{3(24)^2+23}{2(14)}\equiv \frac{1751}{28}\equiv \frac{8}{28} \equiv 8*28^{-1} \equiv 8*3 \equiv 24 \text{ mod 83}\]
+\[2P= [24 ^2 - 24 - 24, 24 (24 - 30) - 14, 1 ] \equiv [30,8,1].\]
+
+$\textbf{Step 2: }$ $4P\equiv 2P \oplus 2P$ where $P_1 \equiv P_2 \equiv [30,8,1]$.\\
+\[\lambda_{4P}=\frac{3(30)^2+23}{2(8)}\equiv \frac{2723}{16}\equiv \frac{67}{16} \equiv 67*16^{-1} \equiv 67*26 \equiv 82 \text{ mod 83}\]
+\[4P= [82 ^2 - 30 - 30, 82 (30 - 24) - 8, 1 ] \equiv [24,69,1].\]
+
+$\textbf{Step 3: }$ $8P\equiv 4P \oplus 4P$ where $P_1 \equiv P_2 \equiv [24,69,1]$.\\
+\[\lambda_{8P}=\frac{3(24)^2+23}{2(69)}\equiv \frac{1751}{138}\equiv \frac{8}{55} \equiv 8*55^{-1} \equiv 8*80 \equiv 59 \text{ mod 83}\]
+\[8P= [59 ^2 - 24 - 24, 59 (24 - 30) - 69, 1 ] \equiv [30,75,1].\]
+
+$\textbf{Step 4: }$ $16P\equiv 8P \oplus 8P$ where $P_1 \equiv P_2 \equiv [30,75,1]$.\\
+\[\lambda_{16P}=\frac{3(30)^2+23}{2(75)}\equiv \frac{2723}{150}\equiv \frac{67}{67} \equiv 1 \text{ mod 83}\]
+\[16P= [1 ^2 - 30 - 30, 1 (30 - 24) - 75, 1 ] \equiv [24,14,1].\]
+
+Since $16P\equiv P$, we can reduce our equation $19P\equiv 16P\oplus 3P\equiv P\oplus 3P\equiv 4P=[24,69,1]$
+
+Thus, \textbf{19P $\equiv$ [24,69,1]}.
+\end{enumerate}
+
+
+
+\end{document}

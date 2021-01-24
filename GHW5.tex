@@ -1,0 +1,125 @@
+\documentclass[12pt]{article}
+%\documentclass[12pt,a4paper]{article}
+%\documentclass[aip,amsmath,amssymb,reprint]{revtex4-1}
+%\documentclass[aip,amsmath,amssymb,graphicx]{revtex4-1}
+
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}	 			% insert PostScript figures
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{wrapfig}
+\usepackage{textcomp}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{relsize}
+\pagestyle{empty}
+\usepackage[top=.9in, bottom=.9in, left=.6in, right=.6in]{geometry}
+\usepackage{indentfirst}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{cite}
+\pagestyle{plain}
+
+\newcommand\md{\ }
+
+
+\begin{document}              
+
+\begin{centering}
+	
+	MATH 5347: APPLIED ALGEBRA WITH CRYPTOLOGY\\
+
+ \line(1,0){500}
+
+\end{centering}
+
+	\par\vspace{3mm}
+
+\begin{centering}
+	{\bf Graded Homework 5 (50 points)}
+	\par\vspace{1mm}
+    {Kimberly Mandery}
+    \par\vspace{1mm}
+	{DUE 1600 181102}
+
+
+\end{centering}
+
+
+
+\vspace{3mm}
+
+{\bf Instructions}: This is a graded homework assignment worth 50 points.  Solutions must be organized, neat in appearance, and must clearly indicate the answer to each problem.  Be sure to show your work where appropriate.  
+
+\vspace{5mm}
+
+\begin{enumerate}
+
+\item (10 points)
+Use the Euclidean algorithm to find the greatest common divisor of $294,906$ and $178,549$.  Also, find integer multiples of these numbers who sum is the gcd.
+
+
+1.  294906 = 178549(1)  + 116357 \hspace{10mm} 6.  8027   = 6003  (1)  + 2024 \qquad Thus our gcd is \textbf{23}.\\ 
+2.  178549 = 116357(1)  + 62192  \hspace{12mm} 7.  6003   = 2024  (2)  + 1955 \qquad \\
+3.  116357 = 62192 (1)  + 54165  \hspace{13mm} 8.  2024   = 1955  (1)  + 69 \\
+4.  62192  = 54165 (1)  + 8027   \hspace{17mm} 9.  1955   = 69    (28) + \textbf{23} \\
+5.  54165  = 8027  (6)  + 6003    \hspace{18mm} 10. 69     = 23    (3)  + 0 
+
+We can use the Extended Euclidean Algorithm found \href{https://planetcalc.com/3298/}{here} to find the integer coefficients.
+
+1 = \textbf{2558}(294,906) \textbf{-4225}(178,549)\\
+
+
+
+\item (20 points)
+Let $p=19$, $q=29$, and $e=215$.  Encipher the message $M=15$ using the RSA scheme.  Next, decipher your ciphertext to make sure you get 15 back.
+
+\textbf{Step 1}: Check Assumptions\\
+We need to check that $e$ is appropriate. We can  do this by calculating the $gcd(e, (p-1)(q-1))$ and hope that it is equal to 1. For $e=215$, we get the $gcd(215,18*28)=gcd(215,504)=1$. Since 215 and 504 are relatively prime, we can continue to step 2.
+
+\textbf{Step 2}: Encryption\\
+To compute our ciphertext $c$, we use the form $c\equiv m^e \text{ mod}N$. Plugging in our variables, we get $c\equiv 15^{215} \text{ mod}551$. To compute $15^{515}$, we will use the online modular calculator found \href{https://www.dcode.fr/modular-exponentiation}{here}. Our ciphertext becomes $c\equiv 280 \text{ mod}551$. Thus $c=280$.
+
+\textbf{Step 3}: Decryption \\
+We need to find a $d$ such that $ed \equiv 1 \text{ mod}(p-1)(q-1) \equiv 1 \text{ mod}504$. To solve, we can use the Euclidean Algorithm. 
+
+ 1. 504 = 215(2) + 74\hspace{8mm} 3. 74  = 67(1)  + 7\hspace{8mm} 5. 7   = 4(1)   + 3\hspace{8mm} 7. 3=1(3)   + 0\\2. 215 = 74(2)  + 67     \hspace{9mm} 4. 67 = 7(9)+ 4\hspace{11mm} 6. 4   = 3(1)   + 1
+
+Notice in step 6 we get a remainder of 1. This value corresponds to the gcd of 215 and 504 which is also 1. Neat. We can use the Extended Euclidean Algorithm mentioned in Exercise 1 to find the coefficients below.
+
+1 = (504)(-61) + (215)(143)\\
+
+\textbf{Step 4}: Verification\\
+To verify that this will give us $e=215$ back, we use the fact that $e\equiv c^d \text{ mod}N$. Thus we have $c\equiv 280^{143}\text{ mod}551$. Using the modular calculator from above, we verify that this $c\equiv 215 \text{ mod} 551$.\\
+
+
+
+\item (5 points)
+Typically the primes multiplied together to form the modulus for RSA are of about the same size.  Explain why this might be.
+
+If the primes are of different sizes, then the smaller of the two primes could be easier to find and thus make the system more prone to attacks.\\
+
+
+
+\item (15 points)
+Formulate a man-in-the-middle attack, similar to the attack described in Example 3.13 on page 126 for the RSA public key cryptosystem.
+
+\textbf{Step 1}: Alice publishes N and e.
+
+\textbf{Step 2}: Eve intercepts Alice's publication and changes N  and e to N* and e* respectively.
+
+\textbf{Step 3}: Bob has a message m. He encrypts message m using $m^{e*}\text{ mod}N\equiv c$. He sends the ciphertext c* to Alice.
+
+\textbf{Step 4}: Instead of c* going directly to Alice, Eve intercepts and decrypts c* using the keys N* and e* sent to Bob. This message is then encrypted using Alice's original keys, N and e, and sent as ciphertext c to Alice.
+
+\textbf{Step 5}: Alice decrypts c using N and e to get Bob's message m. Alice and Bob are none-the-wiser that Eve was listening in on their exchange.
+
+\end{enumerate}
+
+
+
+\end{document}

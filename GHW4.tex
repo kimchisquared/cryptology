@@ -1,0 +1,80 @@
+%Init
+\documentclass[16pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm, amsmath, amssymb, color, graphicx, wrapfig} 
+\begin{document}
+\title{Graded Homework 4}
+\author{Kimberly Mandery}
+\date{10/24/2018} 
+\maketitle
+
+%Exercises
+\begin{enumerate}
+\item (20 points)
+Using a cipher wheel, decrypt the following message, which was encrypted by rotating 1 clockwise for the first letter, then 2 clockwise for the second letter, etc.
+
+%xjhrf tnzhm zgahi uetxz jnbwn utrhe pomdn bjmau gorfa oizoc c
+\begin{center}
+  \begin{tabular}{@{} lllll @{}}
+
+    XJHRF& TNZHM & ZGAHI & UETXZ & JNBWN \\ 
+    UTRHE & POMDN & BJMAU & GORFA & OIZOC \\ 
+    C &  &  & &  \\ 
+  \end{tabular}
+\end{center}
+%abcdefghijklmnopqrstuvwxyz \\
+%shifts possible: 0-25\\
+\begin{center}
+	\begin{tabular}{@{} llll @{}}
+
+	block XJHRF(shift 1-5)& whena  & block TNZHM(shift 6-10)& ngryc\\
+	block ZGAHI(shift 11-15)&ountt & block UETXZ(shift 16-20)&enbef\\
+	block JNBWN(shift 21-25)&oreyo & block UTRHE(shift 0-4)&uspea\\
+	block POMDN(shift 5-9)&kifve   &block BJMAU(shift 10-14)&ryang\\
+	block GORFA(shift 15-19)&ryanh & block OIZOC(shift 20-24)&undre\\
+	block C(shift 25)&d&&\\
+	\end{tabular}
+\end{center}
+
+
+\textit{"When angry, count ten before you speak. If very angry, an hundred"}
+
+
+\vspace{5mm}
+\item (20 points) 
+Let $\{p_1,p_2,\dots, p_r\}$ be a set of prime numbers, and let
+\[N=p_1p_2\cdots p_r+1.\]
+Prove that $N$ is divisible by some prime not in the original set.  Use this fact to deduce that there must be infinitely many prime numbers.
+(This proof of the infinitude of primes appears in Euclid's \emph{Elements}.  Prime numbers have been studied for thousands of years.)
+
+\textbf{Proof}: Suppose N can be written as a product of primes in the set $\{p_1,p_2,\dots p_j\}$ such that \[N=p_1p_2\dots p_j\]. We can observe that \[N-1=p_1p_2\cdots p_r\] from $N=p_1p_2\cdots p_r+1$. Since two consecutive numbers only differ by 1, there is no prime we can multiply $N-1$ by in order to obtain  $p_1,p_2,\dots p_j$. Thus, there must exist a $p_j* \in \{p_1,p_2,\dots p_j\}$ where $p_j* \not\in \{p_1,p_2,\dots, p_r\} $. This works for both finite and infinite sets of primes.
+
+\vspace{5mm}
+\item (20 points) 
+Find all values of $x$ between 0 and $m-1$ that are solutions of the following congruences.
+\begin{enumerate}
+\item $x+17\equiv 23\pmod{37}$\\%6
+$x\equiv (23-17)\pmod{37}$\\
+$x \equiv 6 \pmod{37}\\$
+The solution is $x=6$.\\
+
+\item $x^2\equiv 3\pmod{11}$\\%56
+$5^2\equiv 3\pmod{11}$\\
+$6^2\equiv 3\pmod{11}$\\
+The solutions $x=5,6$ were found by trial and error.\\
+
+\item $x^2\equiv 2\pmod{13}$\\%DNE
+No solutions in the interval from 0 to 13 give such an equivalency.\\
+
+
+\item Find a single value $x$ that simultaneously solves the two congruences%31
+\[x\equiv 3\pmod{7}\hspace{5cm} x\equiv 4\pmod{9}.\]
+[Hint Note that every solution of the first congruence looks like $x=3+7y$ for some $y$.  Substitute this into the second congruence and solve for $y$; then use that to get $x$.]\\
+
+Using the hint from above and the Euclidean Algorithm, we can use x=9 and y=7 to get $9\equiv 7(1)+2$. We can repeat the algorithm using x=7 and y=2 to obtain $7 \equiv 2(3)+1$. Since we obtained 1 for a remainder we can stop. Rearranging both we obtain $2\equiv 9-7(1)$ and $1\equiv 7-2(3)$.
+Combining these two equations, we get $1\equiv 7-(9-7(1))(3)$ which is equal to $7+9(-3)+7(3)$. Combining like terms, we get $7(4)+9(-3)$. To finish, we must consider which mod to use and can do the following by using the Chinese Remainder Theorem. Since we combined 7 and 9, the mod is now $7*9$, or $63$. The final combination is
+$4(7*4)+3(9*-3)mod(9*7)\equiv 112-81mod(63) \equiv 31 $
+
+\end{enumerate}
+\end{enumerate}
+\end{document}
